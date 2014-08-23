@@ -130,6 +130,7 @@ public class ForecastFragment extends Fragment {
                     return null;
                 }
                 forecastJsonStr = buffer.toString();
+                Log.v("sunshine", forecastJsonStr);
 
             } catch (IOException e) {
                 Log.e("PlaceholderFragment", "Error ", e);
