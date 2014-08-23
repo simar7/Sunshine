@@ -19,6 +19,7 @@ public class MyActivity extends ActionBarActivity {
                     .add(R.id.container, new ForecastFragment())
                     .commit();
         }
+
     }
 
 

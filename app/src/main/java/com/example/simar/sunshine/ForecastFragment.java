@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -26,6 +28,30 @@ import java.util.Arrays;
 public class ForecastFragment extends Fragment {
 
     public ForecastFragment() {
+    }
+
+    public boolean onOptionsItemSelected(android.view.MenuItem item) {
+        int itemID = item.getItemId();
+        if(itemID == R.id.action_refresh) {
+            FetchWeatherTask weatherTask = new FetchWeatherTask();
+            weatherTask.execute();
+            Log.v("sunshine", "The refresh button was pressed" + itemID);
+            return true;
+        }
+        // xxx: why do we do this?
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        super.setHasOptionsMenu(true);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.forecastfragment, menu);
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
