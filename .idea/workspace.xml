@@ -32,9 +32,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e438add2-0ce8-4761-b96f-25f1a41b29b5" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/simar/sunshine/ForecastFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/example/simar/sunshine/MyActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/simar/sunshine/MyActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_my.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_my.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/example/simar/sunshine/ForecastFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/simar/sunshine/ForecastFragment.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Sunshine.iws" />
@@ -60,7 +58,7 @@
     <splitter split-orientation="horizontal" split-proportion="0.5">
       <split-first>
         <leaf>
-          <file leaf-file-name="MyActivity.java" pinned="false" current="true" current-in-tab="true">
+          <file leaf-file-name="MyActivity.java" pinned="false" current="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/simar/sunshine/MyActivity.java">
               <provider selected="true" editor-type-id="text-editor">
                 <state vertical-scroll-proportion="0.2764977" vertical-offset="0" max-vertical-offset="750">
@@ -75,7 +73,7 @@
           <file leaf-file-name="ForecastFragment.java" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/simar/sunshine/ForecastFragment.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0" vertical-offset="170" max-vertical-offset="1965">
+                <state vertical-scroll-proportion="0.0" vertical-offset="170" max-vertical-offset="2055">
                   <caret line="22" column="3" selection-start-line="22" selection-start-column="3" selection-end-line="22" selection-end-column="3" />
                   <folding>
                     <element signature="imports" expanded="true" />
@@ -128,11 +126,11 @@
       </split-first>
       <split-second>
         <leaf>
-          <file leaf-file-name="ForecastFragment.java" pinned="false" current="false" current-in-tab="true">
+          <file leaf-file-name="ForecastFragment.java" pinned="false" current="true" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/simar/sunshine/ForecastFragment.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1965">
-                  <caret line="0" column="68" selection-start-line="0" selection-start-column="68" selection-end-line="0" selection-end-column="68" />
+                <state vertical-scroll-proportion="1.0235109" vertical-offset="1087" max-vertical-offset="2055">
+                  <caret line="116" column="9" selection-start-line="116" selection-start-column="9" selection-end-line="116" selection-end-column="9" />
                   <folding>
                     <element signature="imports" expanded="true" />
                     <element signature="e#1404#1412#0" expanded="true" />
@@ -1290,7 +1288,11 @@
       <created>1408317924501</created>
       <updated>1408317924501</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Refactoring ForecastFragment, should've auto-refac.">
+      <created>1408815848664</created>
+      <updated>1408815848664</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1343,7 +1345,8 @@
       <TodoPanelSettings />
     </option>
     <MESSAGE value="Lesson 1 complete." />
-    <option name="LAST_COMMIT_MESSAGE" value="Lesson 1 complete." />
+    <MESSAGE value="Refactoring ForecastFragment, should've auto-refac." />
+    <option name="LAST_COMMIT_MESSAGE" value="Refactoring ForecastFragment, should've auto-refac." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -1670,23 +1673,23 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/simar/sunshine/ForecastFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="170" max-vertical-offset="1965">
-          <caret line="22" column="3" selection-start-line="22" selection-start-column="3" selection-end-line="22" selection-end-column="3" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1404#1412#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/simar/sunshine/MyActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.2764977" vertical-offset="0" max-vertical-offset="750">
           <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
           <folding>
             <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/simar/sunshine/ForecastFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="1.0235109" vertical-offset="1087" max-vertical-offset="2055">
+          <caret line="116" column="9" selection-start-line="116" selection-start-column="9" selection-end-line="116" selection-end-column="9" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1404#1412#0" expanded="true" />
           </folding>
         </state>
       </provider>
