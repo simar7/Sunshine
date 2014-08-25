@@ -1,6 +1,7 @@
 //Fucking hax. Please make sure to use auto-refactor from next time.
 package com.example.simar.sunshine;
 
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -22,6 +23,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+
 /**
  * A placeholder fragment containing a simple view.
  */
@@ -34,8 +36,16 @@ public class ForecastFragment extends Fragment {
         int itemID = item.getItemId();
         if(itemID == R.id.action_refresh) {
             FetchWeatherTask weatherTask = new FetchWeatherTask();
-            weatherTask.execute();
-            Log.v("sunshine", "The refresh button was pressed" + itemID);
+
+            String InputURL = "http://api.openweathermap.org/data/2.5/forecast/daily?q=";
+            String InputZIPCode = "94043";
+            String InputMode = "json";
+            String InputUnits = "metric";
+            String InputCount = "7";
+
+            weatherTask.execute(InputURL, InputZIPCode, InputMode, InputUnits, InputCount);
+            //weatherTask.execute();
+            Log.v("sunshine", "The refresh button was pressed: " + itemID);
             return true;
         }
         // xxx: why do we do this?
@@ -80,10 +90,17 @@ public class ForecastFragment extends Fragment {
         return rootView;
     }
 
-    public class FetchWeatherTask extends AsyncTask<Void, Void, Void> {
+    public class FetchWeatherTask extends AsyncTask<String, Void, Void> {
 
         @Override
-        protected Void doInBackground(Void... params) {
+        protected Void doInBackground(String... InputParams) {
+
+            final String InputURL = InputParams[0].toString();
+            final String InputZIPCode = InputParams[1].toString();
+            final String InputMode = InputParams[2].toString();
+            final String InputUnits = InputParams[3].toString();
+            final String InputCount = InputParams[4].toString();
+
             /*
                 Networking code snippet.
              */
@@ -96,10 +113,33 @@ public class ForecastFragment extends Fragment {
             String forecastJsonStr = null;
 
             try {
+
+
+                Uri builtURI = Uri.parse(InputURL).buildUpon()
+                        .appendQueryParameter("q", InputZIPCode)
+                        .appendQueryParameter("mode", InputMode)
+                        .appendQueryParameter("units", InputUnits)
+                        .appendQueryParameter("cnt", InputCount)
+                        .build();
+                String BuiltURI = builtURI.toString();
+
+
+//              Could do this way as well, but breaks the rest of the parsing code.
+//                Uri.Builder URIBuilder = new Uri.Builder();
+//                URIBuilder.scheme("http")
+//                        .authority(InputURL)
+//                        .appendPath(InputZIPCode).appendPath("&mode=")
+//                        .appendPath(InputMode).appendPath("&units=")
+//                        .appendPath(InputUnits).appendPath("&cnt=")
+//                        .appendPath(InputCount);
+//                String BuiltURI = URIBuilder.build().toString();
+
+                Log.v("sunshine", "Built URI: " + BuiltURI);
+
                 // Construct the URL for the OpenWeatherMap query
                 // Possible parameters are available at OWM's forecast API page, at
                 // http://openweathermap.org/API#forecast
-                URL url = new URL("http://api.openweathermap.org/data/2.5/forecast/daily?q=94043&mode=json&units=metric&cnt=7");
+                URL url = new URL(BuiltURI);
 
                 // Create the request to OpenWeatherMap, and open the connection
                 urlConnection = (HttpURLConnection) url.openConnection();
