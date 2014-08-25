@@ -14,6 +14,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import org.json.JSONException;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -90,10 +92,10 @@ public class ForecastFragment extends Fragment {
         return rootView;
     }
 
-    public class FetchWeatherTask extends AsyncTask<String, Void, Void> {
+    public class FetchWeatherTask extends AsyncTask<String, Void, String[]> {
 
         @Override
-        protected Void doInBackground(String... InputParams) {
+        protected String[] doInBackground(String... InputParams) {
 
             final String InputURL = InputParams[0].toString();
             final String InputZIPCode = InputParams[1].toString();
@@ -123,16 +125,17 @@ public class ForecastFragment extends Fragment {
                         .build();
                 String BuiltURI = builtURI.toString();
 
-
-//              Could do this way as well, but breaks the rest of the parsing code.
-//                Uri.Builder URIBuilder = new Uri.Builder();
-//                URIBuilder.scheme("http")
-//                        .authority(InputURL)
-//                        .appendPath(InputZIPCode).appendPath("&mode=")
-//                        .appendPath(InputMode).appendPath("&units=")
-//                        .appendPath(InputUnits).appendPath("&cnt=")
-//                        .appendPath(InputCount);
-//                String BuiltURI = URIBuilder.build().toString();
+            /*
+              Could do this way as well, but breaks the rest of the parsing code.
+                Uri.Builder URIBuilder = new Uri.Builder();
+                URIBuilder.scheme("http")
+                        .authority(InputURL)
+                        .appendPath(InputZIPCode).appendPath("&mode=")
+                        .appendPath(InputMode).appendPath("&units=")
+                        .appendPath(InputUnits).appendPath("&cnt=")
+                        .appendPath(InputCount);
+                String BuiltURI = URIBuilder.build().toString();
+             */
 
                 Log.v("sunshine", "Built URI: " + BuiltURI);
 
@@ -169,11 +172,23 @@ public class ForecastFragment extends Fragment {
                     forecastJsonStr = null;
                     return null;
                 }
-                forecastJsonStr = buffer.toString();
-                Log.v("sunshine", forecastJsonStr);
+
+                WeatherDataParser parserObject = new WeatherDataParser();
+                try
+                {
+                    String[] weekForecastArray = parserObject.getWeatherDataFromJson(forecastJsonStr, Integer.parseInt(InputCount));
+                    forecastJsonStr = buffer.toString();
+                    Log.v("sunshine", forecastJsonStr);
+                    return weekForecastArray;
+                }
+                catch (JSONException e)
+                {
+                    Log.e("ForecastFragment", "Error", e);
+                    return null;
+                }
 
             } catch (IOException e) {
-                Log.e("PlaceholderFragment", "Error ", e);
+                Log.e("ForecastFragment", "Error ", e);
                 // If the code didn't successfully get the weather data, there's no point in attempting
                 // to parse it.
                 forecastJsonStr = null;
@@ -192,7 +207,6 @@ public class ForecastFragment extends Fragment {
                     }
                 }
             }
-        return null;
         }
     }
 }
