@@ -25,11 +25,14 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-
 /**
  * A placeholder fragment containing a simple view.
  */
 public class ForecastFragment extends Fragment {
+
+    ArrayAdapter<String> ForecastAdapter = null;
+    String[] weekForecastArray;
+    ArrayList ForecastData;
 
     public ForecastFragment() {
     }
@@ -46,7 +49,6 @@ public class ForecastFragment extends Fragment {
             String InputCount = "7";
 
             weatherTask.execute(InputURL, InputZIPCode, InputMode, InputUnits, InputCount);
-            //weatherTask.execute();
             Log.v("sunshine", "The refresh button was pressed: " + itemID);
             return true;
         }
@@ -77,11 +79,19 @@ public class ForecastFragment extends Fragment {
                 (Arrays.asList("Today | 30C", "Tomorrow | 20C",
                         "Day After | 10C"));
 
+
+        if (weekForecastArray == null) {
+            Log.v("sunshine", "weekForecastArray was empty");
+            ForecastData = FakeForecastData;
+        }
+        else
+            ForecastData = new ArrayList<String>(Arrays.asList(weekForecastArray));
+
         // Create an adapter, it takes: Activity, id of the forecast, id of the forecast_textview and fakeData.
-        ArrayAdapter<String> ForecastAdapter = new ArrayAdapter<String>
+        ForecastAdapter = new ArrayAdapter<String>
                 (getActivity(),
                         R.layout.list_item_forecast,
-                        R.id.list_item_forecast_textview, FakeForecastData);
+                        R.id.list_item_forecast_textview, ForecastData);
 
         // Get the ID of the ListView by traversing the hierarchy at the rootView Node.
         ListView listView = (ListView) rootView.findViewById(R.id.listview_forecast);
@@ -93,6 +103,11 @@ public class ForecastFragment extends Fragment {
     }
 
     public class FetchWeatherTask extends AsyncTask<String, Void, String[]> {
+
+        @Override
+        protected void onPostExecute(String[] strings) {
+            ForecastAdapter.notifyDataSetChanged();
+        }
 
         @Override
         protected String[] doInBackground(String... InputParams) {
@@ -176,7 +191,7 @@ public class ForecastFragment extends Fragment {
                 WeatherDataParser parserObject = new WeatherDataParser();
                 try
                 {
-                    String[] weekForecastArray = parserObject.getWeatherDataFromJson(forecastJsonStr, Integer.parseInt(InputCount));
+                    weekForecastArray = parserObject.getWeatherDataFromJson(forecastJsonStr, Integer.parseInt(InputCount));
                     forecastJsonStr = buffer.toString();
                     Log.v("sunshine", forecastJsonStr);
                     return weekForecastArray;

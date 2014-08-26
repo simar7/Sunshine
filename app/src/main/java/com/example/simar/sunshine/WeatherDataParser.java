@@ -26,10 +26,13 @@ public class WeatherDataParser {
         JSONObject tempNode = dayNode.getJSONObject("temp");
         maxTemp = tempNode.getDouble("max");
 
-        if (maxTemp != Double.NEGATIVE_INFINITY)
+        if (maxTemp != Double.NEGATIVE_INFINITY) {
+            Log.v("sunshine", "max_temp: " + maxTemp);
             return maxTemp;
-        else
+        } else {
+            Log.v("sunshine", "max_temp: " + maxTemp);
             return -1;
+        }
     }
 
         /*
@@ -126,7 +129,7 @@ public class WeatherDataParser {
 
         for (String s : resultStrs)
         {
-            Log.v("sunshine", "Forecast Entry: " + s);
+            Log.v(WeatherDataParser.class.getSimpleName().toString(), "Forecast Entry: " + s);
         }
         return resultStrs;
     }
